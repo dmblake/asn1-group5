@@ -43,6 +43,7 @@ $route['404_override'] = '';
 $route['stock/([a-zA-Z]{3,4})'] = 'stock/get/$1';
 $route['player/getSpecificPlayer'] = 'player/getSpecificPlayer';
 $route['player/(:any)'] = 'player/get/$1';
+$route['upload'] = 'Upload';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
