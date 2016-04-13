@@ -26,14 +26,14 @@
                 <li><a href="/stock">Stocks</a></li>
                 <li><a href="/player">Profiles</a></li>
                 <?php
-                if (!empty($_SESSION['player'])) {
+                if ($this->session->userdata('playername')) {
                     echo "<li><a href='/login/logout'>Logout</a></li>";
-                    echo "<li><a href='/player/" . $_SESSION['player'] . "'>" . $_SESSION['player'] . "</a></li>";
+                    echo "<li><a href='/player/" . $this->session->userdata('playername') . "'>" . $this->session->userdata('playername'). "</a></li>";
 					// this should include control code to determine if a user has already uploaded an avatar
-					if (empty($_SESSION['avatar'])) {
+					if (!$this->session->userdata('avatar')) {
 						echo "<li><a href='/upload'>Upload</a></li>";
 					} else {
-						echo "<img src=\"/images/" . $_SESSION['player'] . ".jpg\" style=\"height:2.8rem;width:3rem\">";
+						echo "<img src=\"/images/" . $this->session->userdata('playername') . ".jpg\" style=\"height:2.8rem;width:3rem\">";
 					}
                 } else {
                     echo "<li><a href='/login'>Login / Register</a></li>";

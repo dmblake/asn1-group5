@@ -14,7 +14,6 @@ class Login extends Application
     function __construct()
     {
         parent::__construct();
-        session_start();
     }
 
     /**
@@ -27,12 +26,29 @@ class Login extends Application
     }
 
     /**
-     * Process fake user login
+     * Process user login
      */
     function login()
-    {
-        $_SESSION['player'] = $_POST['player'];
-        redirect("/login");
+    {   
+        if (($_POST['player'] != "") && ($_POST['password'])) {
+            $result = $this->players->checkPlayerExists($_POST['player'], $_POST['password']);
+            $player = $_POST['player'];
+            if($result == 1){
+                $this->session->set_userdata('playername', $_POST['player']);
+                redirect("/player/$player");
+            } else {
+                redirect("/login");
+            }
+        }
+    }
+
+    function getPlayers(){
+        $this->load->database();
+        $this->db->select('*');
+        $this->db->from('players');
+        
+        $query = $this->db->get();
+        return $query;
     }
 
     /**
@@ -80,9 +96,8 @@ class Login extends Application
      */
     function logout()
     {
-        $_SESSION['player'] = '';
-		$_SESSION['avatar'] = '';
-        redirect("/login");
+        $this->session->sess_destroy();
+        redirect("/");
     }
 
 }

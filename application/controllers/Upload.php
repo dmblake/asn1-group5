@@ -4,7 +4,7 @@ class Upload extends Application {
 	
 	function __construct() {
 		parent::__construct();
-		session_start();
+		//session_start();
 		$this->load->helper(array('form', 'url'));
 	}
 	
@@ -15,7 +15,7 @@ class Upload extends Application {
 	
 	function do_upload() {
 		$config['upload_path'] = "./images/";
-		$config['file_name'] = $_SESSION['player'] . '.jpg';
+		$config['file_name'] = $this->session->userdata('playername');
 		$config['is_image'] = 1;
 		$config['allowed_types'] = '*';
 		$config['max_size']	= '1000';
@@ -41,7 +41,8 @@ class Upload extends Application {
 				foreach($d as $c)
 					echo $c;
 					*/
-			$_SESSION['avatar'] = true;
+			//$_SESSION['avatar'] = true;
+			$this->session->set_userdata('avatar', true);
 			redirect("/");
 		}
 	}
