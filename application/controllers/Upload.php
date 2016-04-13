@@ -1,19 +1,22 @@
 <?php
 
-class Upload extends CI_Controller {
+class Upload extends Application {
 	
 	function __construct() {
 		parent::__construct();
+		session_start();
 		$this->load->helper(array('form', 'url'));
 	}
 	
 	function index() {
-		$this->load->view('homepage', array('error' => ' ' ));
+		$this->data['pagebody'] = 'upload_choose';
+		$this->render();
 	}
 	
-	
 	function do_upload() {
-		$config['upload_path'] = './uploads/';
+		$config['upload_path'] = "./images/";
+		$config['file_name'] = $_SESSION['player'] . '.jpg';
+		$config['is_image'] = 1;
 		$config['allowed_types'] = '*';
 		$config['max_size']	= '1000';
 		$config['max_width']  = '1500';
@@ -25,13 +28,21 @@ class Upload extends CI_Controller {
 		{
 			// fail to upload
 			$error = array('error' => $this->upload->display_errors());
+			echo $error;
 			foreach ($error as $e)
 				echo $e;
+			redirect("/upload");
 		}
 		else
 		{
-			//$data = array('upload_data' => $this->upload->data());
-			// handle success case
+			$data = array('upload_data' => $this->upload->data());
+			/* DEBUGGING: check data
+			foreach ($data as $d)
+				foreach($d as $c)
+					echo $c;
+					*/
+			$_SESSION['avatar'] = true;
+			redirect("/");
 		}
 	}
 }

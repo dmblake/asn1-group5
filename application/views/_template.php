@@ -29,8 +29,15 @@
                 if (!empty($_SESSION['player'])) {
                     echo "<li><a href='/login/logout'>Logout</a></li>";
                     echo "<li><a href='/player/" . $_SESSION['player'] . "'>" . $_SESSION['player'] . "</a></li>";
+					// this should include control code to determine if a user has already uploaded an avatar
+					if (empty($_SESSION['avatar'])) {
+						echo "<li><a href='/upload'>Upload</a></li>";
+					} else {
+						echo "<img src=\"/images/" . $_SESSION['player'] . ".jpg\" style=\"height:2.8rem;width:3rem\">";
+					}
                 } else {
                     echo "<li><a href='/login'>Login / Register</a></li>";
+					echo "<img src=\"/images/default_avatar.png\" style=\"height:2.8rem;width:3rem\">";
                 }
                 ?>
             </ul>

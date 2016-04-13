@@ -32,7 +32,7 @@ class Login extends Application
     function login()
     {
         $_SESSION['player'] = $_POST['player'];
-        redirect("/");
+        redirect("/login");
     }
 
     /**
@@ -81,7 +81,8 @@ class Login extends Application
     function logout()
     {
         $_SESSION['player'] = '';
-        redirect("/");
+		$_SESSION['avatar'] = '';
+        redirect("/login");
     }
 
 }
