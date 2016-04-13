@@ -13,7 +13,6 @@ class Stock extends Application
     function __construct()
     {
         parent::__construct();
-        session_start();
     }
 
     //-------------------------------------------------------------

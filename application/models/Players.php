@@ -26,6 +26,19 @@ class Players extends MY_Model
         return $result;
     }
 
+    function checkPlayerExists($player, $pw)
+    {
+        $queryString = "SELECT * FROM `players` WHERE Player = '$player' AND Password = '$pw'";
+        $result = $this->db->query($queryString);
+
+        $counter = 0;
+        foreach ($result->result() as $row) {
+            $counter++;
+        }
+
+        return $counter;
+    }
+
     /**
      * Returns all players fitting query with their equity
      *
